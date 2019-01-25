@@ -14,7 +14,7 @@
 </li>
 </ul>
 <p>​        Angora大大超过了最先进的模糊器。表1比较了Angora与其他模糊器在LAVA-M数据集上发现的漏洞[9]。Angora在数据集中的每个程序中发现了更多错误。特别是，Angora发现了1541个漏洞，是第二个最好的模糊器Steelix发现的漏洞数量的8倍。此外，Angora发现了LAVA作者注射但却无法触发的103个错误。我们还在八个流行的，成熟的开源程序上测试了Angora。Angora分别在file，jhead，nm，objdump和size中发现了6,52,29,40和48个新错误（表5）。我们测量了Angora的覆盖范围，并评估了其关键技术如何促成其令人印象深刻的性能。</p>
-<p><img src="/2019/01/25/Angora-Efficient-Fuzzing-by-Principled-Search/F:/GitHub\hexo\source\_posts\Angora-Efficient-Fuzzing-by-Principled-Search\图1.png" alt="图1"></p>
+<p><img src="/2019/01/25/Angora-Efficient-Fuzzing-by-Principled-Search/F:/GitHub\hexo\source\_posts\Angora-Efficient-Fuzzing-by-Principled-Search\p1.png" alt="图1"></p>
 <h1 id="2-背景：AFL"><a href="#2-背景：AFL" class="headerlink" title="2 背景：AFL"></a>2 背景：AFL</h1><p>​    模糊测试是一种自动测试技术，用于查找错误。 American Fuzzy Lop（AFL）[1]是一种基于突变的灰盒模糊器。 AFL采用轻量级编译时插桩和遗传算法来自动发现可能触发目标程序中新内部状态的测试用例。作为基于覆盖率的模糊器，AFL生成输入以遍历程序中的不同路径来触发错误。</p>
 <h2 id="2-1-分支覆盖范围"><a href="#2-1-分支覆盖范围" class="headerlink" title="2.1 分支覆盖范围"></a>2.1 分支覆盖范围</h2><p>​    AFL通过一组分支来测量路径。在每次运行期间，AFL计算每个分支执行的次数。它将分支表示为元组（lprev; lcur），其中lprev和lcur分别是条件语句之前和之后的基本块的ID。AFL通过使用轻量级检测获取分支覆盖率信息。在编译时在每个分支点注入插桩。对于每次运行，AFL分配路径跟踪表以计算每个条件语句的每个分支执行的次数。表的索引是分支的散列，h（lprev; lcur），其中h是散列函数。</p>
 <p>​    AFL还在不同的运行中保留全局分支覆盖表。每个条目都包含一个8位向量，用于记录分支在不同运行中执行的次数。该向量b中的每个位表示一个范围：b0,……,b7分别代表范围[1]，[2]，[3]，[4; 7]，[8; 15]，[16; 31]，[32; 127]，[128; ∞）。例如，如果设置了b3，则表示存在执行此分支执行4到7次的运行，包括。</p>
