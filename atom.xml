@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>yama0xff&#39;s blog</title>
+  
+  <subtitle>CYBERSECURITY  BETWEEN 0 AND 1</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yama0xff.com/"/>
+  <updated>2019-01-25T04:04:58.896Z</updated>
+  <id>http://yama0xff.com/</id>
+  
+  <author>
+    <name>yama0xff</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>中文2</title>
+    <link href="http://yama0xff.com/2019/01/25/%E4%B8%AD%E6%96%872/"/>
+    <id>http://yama0xff.com/2019/01/25/中文2/</id>
+    <published>2019-01-25T04:04:58.000Z</published>
+    <updated>2019-01-25T04:04:58.896Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>中文</title>
+    <link href="http://yama0xff.com/2019/01/25/%E4%B8%AD%E6%96%87/"/>
+    <id>http://yama0xff.com/2019/01/25/中文/</id>
+    <published>2019-01-25T03:46:44.000Z</published>
+    <updated>2019-01-25T04:03:18.709Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一级目录"><a href="#一级目录" class="headerlink" title="一级目录"></a>一级目录</h1><h2 id="二级目录"><a href="#二级目录" class="headerlink" title="二级目录"></a>二级目录</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;一级目录&quot;&gt;&lt;a href=&quot;#一级目录&quot; class=&quot;headerlink&quot; title=&quot;一级目录&quot;&gt;&lt;/a&gt;一级目录&lt;/h1&gt;&lt;h2 id=&quot;二级目录&quot;&gt;&lt;a href=&quot;#二级目录&quot; class=&quot;headerlink&quot; title=&quot;二级目录&quot;&gt;&lt;/a
+      
+    
+    </summary>
+    
+      <category term="论文" scheme="http://yama0xff.com/categories/%E8%AE%BA%E6%96%87/"/>
+    
+      <category term="漏洞挖掘" scheme="http://yama0xff.com/categories/%E8%AE%BA%E6%96%87/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"/>
+    
+    
+      <category term="test" scheme="http://yama0xff.com/tags/test/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>test2</title>
+    <link href="http://yama0xff.com/2019/01/25/test2/"/>
+    <id>http://yama0xff.com/2019/01/25/test2/</id>
+    <published>2019-01-25T03:46:30.000Z</published>
+    <updated>2019-01-25T03:51:10.500Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yama0xff.com/2019/01/25/hello-world/"/>
+    <id>http://yama0xff.com/2019/01/25/hello-world/</id>
+    <published>2019-01-25T03:34:21.684Z</published>
+    <updated>2019-01-25T03:34:21.685Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+      <category term="论文" scheme="http://yama0xff.com/categories/%E8%AE%BA%E6%96%87/"/>
+    
+      <category term="恶意代码分析" scheme="http://yama0xff.com/categories/%E8%AE%BA%E6%96%87/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="杂项" scheme="http://yama0xff.com/tags/%E6%9D%82%E9%A1%B9/"/>
+    
+      <category term="test" scheme="http://yama0xff.com/tags/test/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yama0xff.com/2019/01/25/test-1/"/>
+    <id>http://yama0xff.com/2019/01/25/test-1/</id>
+    <published>2019-01-25T02:03:30.000Z</published>
+    <updated>2019-01-25T03:34:21.688Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yama0xff.com/2019/01/24/test/"/>
+    <id>http://yama0xff.com/2019/01/24/test/</id>
+    <published>2019-01-24T07:53:25.000Z</published>
+    <updated>2019-01-25T03:34:21.690Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="论文" scheme="http://yama0xff.com/categories/%E8%AE%BA%E6%96%87/"/>
+    
+      <category term="漏洞挖掘" scheme="http://yama0xff.com/categories/%E8%AE%BA%E6%96%87/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"/>
+    
+    
+  </entry>
+  
+</feed>
