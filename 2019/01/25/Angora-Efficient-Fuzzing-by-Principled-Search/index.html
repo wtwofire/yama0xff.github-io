@@ -52,7 +52,7 @@
 <li><p>仅仅改变输入中的字节是不够的。只有在输入超过阈值后才会触发一些错误，但这会在决定输入长度时产生两难。如果输入太短，则可能不会触发某些错误。但如果输入太长，程序可能运行得太慢。大多数模糊器使用临时方法改变输入的长度。相比之下，Angora使用代码检测程序，该代码检测较长输入何时可以探索新分支并确定所需的最小长度（第3.6节）。</p>
 </li>
 </ul>
-<p><img src="/2019/01/25/Angora-Efficient-Fuzzing-by-Principled-Search/F:/GitHub\hexo\source\_posts\Angora-Efficient-Fuzzing-by-Principled-Search\图2.png" alt="图2"></p>
+<p><img src="/2019/01/25/Angora-Efficient-Fuzzing-by-Principled-Search/图2.png" alt="图2"></p>
 <p>​    图1显示了fuzzing条件语句的步骤图。图2中的程序演示了这些步骤。</p>
 <ul>
 <li><p>字节级污点跟踪：当使用字节级污点跟踪对第2行的条件语句进行模糊测试时，Angora确定字节1024-1031流入此表达式，因此它仅改变这些字节。</p>
