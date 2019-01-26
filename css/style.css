@@ -520,6 +520,7 @@ body {
   box-shadow: 1px 2px 3px #adc2d7;
   border: 1px solid #adc2d7;
   margin-bottom: 40px;
+/* 博客标题 */
 }
 .post .post-title {
   margin: 0;
@@ -528,7 +529,7 @@ body {
   border-bottom: 1px solid #d8e2eb;
   padding-bottom: 10px;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 30px;
   line-height: 1.1;
 }
 .post .post-title a {
@@ -541,7 +542,7 @@ body {
   padding: 0;
   margin: 10px 0 0;
   color: #333;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 24px;
   min-height: 24px;
   text-indent: 0.15em;
@@ -610,8 +611,8 @@ body {
 }
 .post .post-content {
   clear: left;
-  font-size: 15px;
-  line-height: 1.77;
+  font-size: 16px;
+  line-height: 2;
   color: #333;
   padding-top: 15px;
   text-align: justify;
