@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yama0xff.com/2019/01/29/VUzzer-Application-aware-Evolutionary-Fuzzing/</loc>
+    
+    <lastmod>2019-01-29T13:00:26.009Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yama0xff.com/2019/01/25/Angora-Efficient-Fuzzing-by-Principled-Search/</loc>
     
     <lastmod>2019-01-28T09:55:32.592Z</lastmod>
