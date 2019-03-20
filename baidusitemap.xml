@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://yama0xff.com/2019/03/08/Fuzzing-%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/</loc>
-    <lastmod>2019-03-19</lastmod>
-  </url>  <url>
     <loc>http://yama0xff.com/2019/02/15/Lord-of-the-X86-Rings-A-Portable-User-Mode-Privilege-Separation-Architecture-on-X86/</loc>
     <lastmod>2019-02-15</lastmod>
   </url>  <url>
