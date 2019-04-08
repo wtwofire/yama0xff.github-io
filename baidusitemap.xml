@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yama0xff.com/2019/04/08/Experimenting-machine-learning-techniques-to-predict-vulnerabilities/</loc>
+    <lastmod>2019-04-08</lastmod>
+  </url>  <url>
+    <loc>http://yama0xff.com/2019/04/04/Analysis-and-Detection-of-Android-App-Privilege-Escalation-Vulnerability-Based-on-Machine-Learning/</loc>
+    <lastmod>2019-04-04</lastmod>
+  </url>  <url>
     <loc>http://yama0xff.com/2019/04/03/A-Review-of-Machine-Learning-in-Software-Vulnerability-Research/</loc>
     <lastmod>2019-04-04</lastmod>
   </url>  <url>
