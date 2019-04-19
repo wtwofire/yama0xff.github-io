@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="二进制安全研究"><meta name="keywords" content="binary security，vulnerability，fuzzing, revese,二进制安全，漏洞，逆向，恶意样本检测"><title>Skyfire: Data-Driven Seed Generation for Fuzzing | yama0xff's blog</title><link rel="stylesheet" type="text/css" href="//fonts.neworld.org/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.1"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.1"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Skyfire: Data-Driven Seed Generation for Fuzzing</h1><a id="logo" href="/.">yama0xff's blog</a><p class="description">CYBERSECURITY  BETWEEN 0 AND 1</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="Arama"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Skyfire: Data-Driven Seed Generation for Fuzzing</h1><div class="post-meta"><a href="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/#comments" class="comment-count"></a><p><span class="date">Apr 10, 2019</span><span><a href="/categories/论文/" class="category">论文</a><a href="/categories/论文/fuzzing/" class="category">fuzzing</a><a href="/categories/论文/fuzzing/测试输入生成/" class="category">测试输入生成</a></span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>对于输入格式是高度结构化文件的程序来说，其处理流程一般是：语法解析–语义检查–程序执行。程序深层次的漏洞一般隐藏在程序执行阶段，而对于自动化的模糊测试（Fuzzing）来说很难触发该类漏洞。该论文提出了一种数据驱动的种子生成方法，叫做Skyfire。Skyfire通过从大量的已知样本中学习而生成覆盖良好的种子作为Fuzzing的输入对处理高度结构化输入的程序进行测试。Skyfire接收输入样本集合和文法，通过自动化学习PCSG（Probabilistic context-sensitive grammar，一种带概率的上下文有关文法，包含语义规则和语法特征），并利用其生成种子文件。本文利用收集的样本和Skyfire生成的种子作为AFL的seed对开源的XSLT、XML等引擎进行测试，证明skyfire生成的种子文件分布（提高了20%行覆 盖率和%15的函数覆盖率）和发现漏洞能力。同时也对闭源的IE11的JavaScript引擎测试。其发现了19个新的内存破坏型bug（其中16个新的漏洞）和32个拒绝服务bug。</p>
+<table>
+<thead>
+<tr>
+<th>relevant information</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>作者</em></td>
+<td>Junjie Wang, Bihuan Chen†, Lei Wei, and Yang Liu</td>
+</tr>
+<tr>
+<td><em>单位</em></td>
+<td>Nanyang Technological University, Singapore</td>
+</tr>
+<tr>
+<td><em>出处</em></td>
+<td>IEEE S&amp;P 2017</td>
+</tr>
+<tr>
+<td><em>原文地址</em></td>
+<td><a href="https://www.ieee-security.org/TC/SP2017/papers/42.pdf" target="_blank" rel="noopener">https://www.ieee-security.org/TC/SP2017/papers/42.pdf</a></td>
+</tr>
+<tr>
+<td><em>源码地址</em></td>
+<td><a href="https://github.com/zhunki/skyfire" target="_blank" rel="noopener">https://github.com/zhunki/skyfire</a></td>
+</tr>
+<tr>
+<td><em>发表时间</em></td>
+<td>2017年</td>
+</tr>
+</tbody>
+</table>
+<h1 id="1-背景介绍"><a href="#1-背景介绍" class="headerlink" title="1. 背景介绍"></a>1. 背景介绍</h1><p>Fuzzing是一种自动化的随机测试技术，其通过变异或者生成的方法生成大量的测试样本，并利用生成的测试样本对目标程序进行测试和监控，以发现程序异常和缺陷。</p>
+<p>模糊测试的输入种子文件的质量是对测试效果的重要影响因素。如图1所示，基于变异的方法是通过随机或者启发式的方法对合法的输入种子文件进行变异生成测试用例，大部分的生成用例在早期的语法检查阶段就被拒绝而导致程序退出。然而，基于生成的方法是利用格式描述或文法描述来生成测试用例，可以快速的通过语法检查阶段，但是大部分程序在语义检查阶段也难以通过，这都限制了这些方法难以挖掘程序的深层次漏洞。一个高效的Fuzzer需要实现大部分的生成样本可以到达处理执行阶段（execution stage)。</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/1.jpg" alt=""></p>
+<p>基于生成的方法能够实现对语法规则的描述和生成，但是想要通过语义规则的检查却是非常困难的。一方面，对于不同的程序有不同的语义规则，编写的生成规则难以复用；另一方面，这样的手动描述方法是非常耗时费力的，而且有时候甚至是难以实现的。</p>
+<p>本文使用一种扩展的上下文敏感的文法（包含语义信息和概率信息）来生成测试用例，并将其作为Fuzzer的输入进行测试。Skyfire面向的目标程序是接收高度结构化输入的程序，目的是生成覆盖良好的测试用例。</p>
+<h1 id="2-方法概述"><a href="#2-方法概述" class="headerlink" title="2 方法概述"></a>2 方法概述</h1><h2 id="2-1-生成目标"><a href="#2-1-生成目标" class="headerlink" title="2.1 生成目标"></a>2.1 生成目标</h2><p>（1）生成正确的种子：能够通过程序的语法和语义检测；</p>
+<p>（2）生成多样性种子：能够多样化地覆盖语法和语义规则；</p>
+<p>（3）生成不常见种子：能够生成一般Fuzzer生成不了的种子。</p>
+<h2 id="2-2-处理过程"><a href="#2-2-处理过程" class="headerlink" title="2.2 处理过程"></a>2.2 处理过程</h2><p>Skyfire通过学习PCSG，可以生成覆盖良好的种子，供后续fuzzing，总体架构如图2所示。</p>
+<p><strong>输入</strong>：爬取的样本集合+程序的语法规则（github上ANTLR社区开源）；</p>
+<p><strong>输出</strong>：覆盖良好的种子。</p>
+<p>包含以下主要步骤：</p>
+<ul>
+<li><strong>(1) PCSG学习</strong></li>
+</ul>
+<p>根据输入自动化抽取带概率的上下文有关文法规则；</p>
+<ul>
+<li><strong>（2）种子生成</strong></li>
+</ul>
+<p><strong>初始种子生成</strong>：根据抽取的规则采用左推导方法进行初始种子生成；</p>
+<p><strong>种子选取</strong>：采用覆盖率作为衡量标准进行样本去重选取；</p>
+<p><strong>种子变异</strong>：利用随机替换原则对同种类型的叶子节点进行变异；</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/2.jpg" alt=""></p>
+<p>下面详细介绍下这些主要步骤：</p>
+<h3 id="2-2-1-PCSG学习"><a href="#2-2-1-PCSG学习" class="headerlink" title="2.2.1 PCSG学习"></a>2.2.1 PCSG学习</h3><p>这里是Skyfire的很重要的一点，为了更好理解这个过程，先介绍下CFG（Context-free grammar，上下文无关文法）、CSG（Context-sensitive grammar，上下文有关文法）。CFG的定义如图3，它是一个四元组，由一组有限的α→β1β2…βn形式的产生式规则组成。其中α∈N是有限的非终端符号集，βi属于一组有限的非终端符号和终端符号的并集。这套文法可以用来表示一个语言的语法规则。图4是XSL语言的上下文无关文法部分内容。</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/3.jpg" alt="3"><br>图3 CFG的定义</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/4.jpg" alt="4"><br>图4 XSL语言的上下文无关文法部分内容</p>
+<p>根据上下文无关文法，可以将一个XSL文件解析为抽象语法树，图5就是一个XSL文件及其抽象语法树。上下文无关文法能很好地表达语法信息，但因为上下文无关，不能表达上下文相关的语义信息。</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/5.jpg" alt=""><br>图5 一个XSL示例文件及其抽象语法树</p>
+<p>因此，可以用上下文有关文法来加入语义信息。图6是作者定义的一种上下文有关文法，给产生式中增加了上下文信息。上下文包含四项信息，顺序依次为α的曾祖父母类型、祖父母类型、父类类型、第一兄弟姐妹的值或第一兄弟姐妹的类型（如果值为空的话）。</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/6.jpg" alt=""><br>图6 CSG的定义</p>
+<p>为了生成分布良好的种子，作者还将概率附加到每个产生规则的上下文中，来定义在一个上下文下，每种产生式规则的概率。这样，就有了本文的核心和一大创新点：带概率的上下文有关文法PCSG，可以将CFG、CSG和PCSG结合起来看，如图7所示。</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/7.jpg" alt=""><br>图7 从CFG、CSG到PCSG的演进</p>
+<p>PCSG的学习过程分为以下几步：</p>
+<ul>
+<li><p>（1）自动从样本解析出AST；</p>
+</li>
+<li><p>（2）计算每种parent-children对（即产生式规则）在相应上下文下的次数；</p>
+</li>
+<li><p>（3）计算在一种上下文下的每种产生式规则的概率，等于在上下文c下这个产生式规则“α→β1β2…βn”的次数除以所有树中“α”的次数，公式如下：</p>
+</li>
+</ul>
+<p>$$<br>q([c]α→β1β2…βn) = count([c]α→β1β2…βn)/count(α)<br>$$</p>
+<p>例如图8所示，绿色的节点5和节点14是父子对，对应的是上下文&lt;null, document, prolog, &lt;?xml&gt;下的产生规则attribute Version=“1.0”，它对应的上下文为曾祖父为空，祖父母为文档，父为PROLOG，第一个兄弟为&lt;？xml。图9是XSL语言学习的产生规则的一部分，在上下文&lt;NULL、NULL、NULL、NULL&gt;下只有两个产生规则的左边是document，这与document是XSL语言的开始符号这一事实是一致的。</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/8.png" alt=""><br>图8 PCSG学习过程示例</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/9.jpg" alt=""><br>图9 XSL语言学习的产生规则的一部分</p>
+<h3 id="2-2-2-种子生成"><a href="#2-2-2-种子生成" class="headerlink" title="2.2.2 种子生成"></a>2.2.2 种子生成</h3><p>整个种子生成过程可以分为三步：初始种子生成、种子选择、种子变异。</p>
+<ul>
+<li><strong>（1）始种子生成</strong></li>
+</ul>
+<p><strong>初始种子生成的算法</strong></p>
+<p>初始种子是根据学习出的PCGS，利用左推导方法生成种子输入产生的，算法也很清晰易懂，如图10所示。首先设置语法的起始符号t0，然后从 t 中获取最左边的非终结符 l 和上下文信息 c，再从Rl中随机选取产生式规则r，再在 t 中对 l 进行 r 推导替换，重复这个过程直到没有剩余的非终端符号。</p>
+<p>这里使用了四个启发式规则来生成分布良好的样本，我用不同颜色在算法中标示了出来。第一条红色代表优先选取低概率的产生规则，这样可以生成网上爬取的样本很难覆盖的功能；第二条是限制相同一产生规则的使用次数，优先应用频率低的规则；第三条是优先使用低复杂度的产生规则；第四条是限制所有规则的应用次数。</p>
+<p><img src="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/10.jpg" alt=""><br>图10 从PCSG中产生初始种子的算法</p>
+<ul>
+<li><strong>（2）种子选取</strong></li>
+</ul>
+<p>上面的步骤可以生成很多的初始种子，但并不是所有种子都是唯一和重要的，作者以覆盖率作为标准进行种子去冗余筛选，对于开源程序使用gcov获取代码和函数覆盖率，对于闭源程序使用PIN获取基本块覆盖率。</p>
+<ul>
+<li><strong>（3）种子变异</strong></li>
+</ul>
+<p>上面的步骤可以产生语法结构多样的种子，为了进一步确保语义的多样性，SkyFire会对生成的种子进行Big-Step变异。这种Big-step的变异可以产生一般Fuzzer的small-step变异难以生成的种子。方法是从AST中选取叶子节点，并利用同种类型的叶子节点对其进行随机替换，只用右边是终结符的推导规则。</p>
+<h1 id="3-实验"><a href="#3-实验" class="headerlink" title="3 实验"></a>3 实验</h1><p>实验利用爬取的种子文件对libxslt、libxml2、Sabotron进行测试，测试能够有效发现漏洞，并且漏洞持续发现能力比直接用爬取的种子文件进行测试效果更好。</p>
+<p>此外，测试的覆盖率等得到明显的提升效果。目前该方法对JavaScript语言的测试效果不是特别理想，需要进一步的改进。</p>
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h1><p>本文实现的数据驱动的种子生成方法利用文法和样本自动抽取语义信息，并利用语义信息和语法规则进行种子生成，能够保证生成种子文件通过语法解析和语义检查，能够执行到目标程序的更深的路径，从而更有效的发现深层次的漏洞。</p>
+<p>Skyfire目前对于XML、XSL语言的应用效果很好，能够保证漏洞发现能力和覆盖率，但是对于JS这种较为复杂的语言应用不够理想。</p>
+<p><strong>5</strong> <strong>未来工作</strong></p>
+<p>作者将继续应用和扩展这种种子生成方法，以便更好地支持更多不同的语言，如javascript、SQL、C和java。除了查找安全漏洞之外，作者还希望使用生成的种子输入来查找编译器错误。</p>
+</div><div class="tags"><a href="/tags/fuzzing/">fuzzing</a><a href="/tags/2017年/">2017年</a><a href="/tags/机器学习/">机器学习</a><a href="/tags/测试输入生成/">测试输入生成</a></div><div class="post-share"><div class="bdsharebuttonbox"><span style="float:left;line-height: 28px;height: 28px;font-size:16px;font-weight:blod">分享到：</span><a href="#" data-cmd="more" class="bds_more"></a><a href="#" data-cmd="mshare" title="分享到一键分享" class="bds_mshare"></a><a href="#" data-cmd="fbook" title="分享到Facebook" class="bds_fbook"></a><a href="#" data-cmd="twi" title="分享到Twitter" class="bds_twi"></a><a href="#" data-cmd="linkedin" title="分享到linkedin" class="bds_linkedin"></a><a href="#" data-cmd="youdao" title="分享到有道云笔记" class="bds_youdao"></a><a href="#" data-cmd="evernotecn" title="分享到印象笔记" class="bds_evernotecn"></a><a href="#" data-cmd="weixin" title="分享到微信" class="bds_weixin"></a><a href="#" data-cmd="qzone" title="分享到QQ空间" class="bds_qzone"></a><a href="#" data-cmd="tsina" title="分享到新浪微博" class="bds_tsina"></a></div></div><div class="post-nav"><a href="/2019/04/11/NEUZZ-Efficient-Fuzzing-with-Neural-Program-Smoothing/" class="pre">NEUZZ: Efficient Fuzzing with Neural Program Smoothing</a><a href="/2019/04/04/如何做科研/" class="next">如何做科研</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Abstract"><span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-背景介绍"><span class="toc-text">1. 背景介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-方法概述"><span class="toc-text">2 方法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-生成目标"><span class="toc-text">2.1 生成目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-处理过程"><span class="toc-text">2.2 处理过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-PCSG学习"><span class="toc-text">2.2.1 PCSG学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-种子生成"><span class="toc-text">2.2.2 种子生成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-实验"><span class="toc-text">3 实验</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-总结"><span class="toc-text">4 总结</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/15/Not-all-bytes-are-equal-Neural-byte-sieve-for-fuzzing/">Not all bytes are equal: Neural byte sieve for fuzzing</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/15/Recurrent-Neural-Networks-for-Fuzz-Testing-Web-Browsers/">Recurrent Neural Networks for Fuzz Testing Web Browsers</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/11/NEUZZ-Efficient-Fuzzing-with-Neural-Program-Smoothing/">NEUZZ: Efficient Fuzzing with Neural Program Smoothing</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/">Skyfire: Data-Driven Seed Generation for Fuzzing</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/04/如何做科研/">如何做科研</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/02/Sofware-Vulnerability-Analysis-and-Discovery-Using-Machine-Learning-and-Data-Mining-Techniques-A-Survey/">Sofware Vulnerability Analysis and Discovery Using Machine-Learning and Data-Mining Techniques: A Survey</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/02/A-Survey-on-Source-Code-Review-Using-Machine-Learning/">A Survey on Source Code Review Using Machine Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/02/From-automation-to-intelligence-Survey-of-research-on-vulnerability-discovery-techniques/">From automation to intelligence: Survey of research on vulnerability discovery techniques</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/20/Fuzzing-Art-Science-and-Engineering/">Fuzzing: Art, Science, and Engineering</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/15/Lord-of-the-X86-Rings-A-Portable-User-Mode-Privilege-Separation-Architecture-on-X86/">Lord of the X86 Rings: A Portable User Mode Privilege Separation Architecture on X86</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/科研/">科研</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/论文/">论文</a><span class="category-list-count">21</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/论文/IOT/">IOT</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/论文/fuzzing/">fuzzing</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/论文/fuzzing/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/论文/fuzzing/测试输入生成/">测试输入生成</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/论文/fuzzing/综述/">综述</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/论文/数据挖掘/">数据挖掘</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/论文/数据挖掘/综述/">综述</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/论文/自动化利用/">自动化利用</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/论文/软件分析/">软件分析</a><span class="category-list-count">5</span></li></ul></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/静态符号执行、/" style="font-size: 15px;">静态符号执行、</a> <a href="/tags/Double-Fetch-Bugs/" style="font-size: 15px;">Double-Fetch Bugs</a> <a href="/tags/2018年/" style="font-size: 15px;">2018年</a> <a href="/tags/exploitation/" style="font-size: 15px;">exploitation</a> <a href="/tags/heap/" style="font-size: 15px;">heap</a> <a href="/tags/符号执行/" style="font-size: 15px;">符号执行</a> <a href="/tags/USENIX-18/" style="font-size: 15px;">USENIX'18</a> <a href="/tags/ACM-CCS-18/" style="font-size: 15px;">ACM CCS'18</a> <a href="/tags/Lacking-Recheck-Bugs/" style="font-size: 15px;">Lacking-Recheck Bugs</a> <a href="/tags/Kernels/" style="font-size: 15px;">Kernels</a> <a href="/tags/fuzzing/" style="font-size: 15px;">fuzzing</a> <a href="/tags/综述/" style="font-size: 15px;">综述</a> <a href="/tags/防护/" style="font-size: 15px;">防护</a> <a href="/tags/CFI/" style="font-size: 15px;">CFI</a> <a href="/tags/ACM-CCS’18/" style="font-size: 15px;">ACM CCS’18</a> <a href="/tags/内核/" style="font-size: 15px;">内核</a> <a href="/tags/USENIX-17/" style="font-size: 15px;">USENIX'17</a> <a href="/tags/2017年/" style="font-size: 15px;">2017年</a> <a href="/tags/机器学习/" style="font-size: 15px;">机器学习</a> <a href="/tags/测试输入生成/" style="font-size: 15px;">测试输入生成</a> <a href="/tags/脱壳/" style="font-size: 15px;">脱壳</a> <a href="/tags/二进制反汇编/" style="font-size: 15px;">二进制反汇编</a> <a href="/tags/静态重写技术/" style="font-size: 15px;">静态重写技术</a> <a href="/tags/NDSS-18/" style="font-size: 15px;">NDSS'18</a> <a href="/tags/AsiaCCS-18/" style="font-size: 15px;">AsiaCCS'18</a> <a href="/tags/逆向/" style="font-size: 15px;">逆向</a> <a href="/tags/二进制分析工具/" style="font-size: 15px;">二进制分析工具</a> <a href="/tags/科研/" style="font-size: 15px;">科研</a> <a href="/tags/IOT/" style="font-size: 15px;">IOT</a> <a href="/tags/S-P-19/" style="font-size: 15px;">S&P'19</a> <a href="/tags/2019年/" style="font-size: 15px;">2019年</a> <a href="/tags/堆叠RNN/" style="font-size: 15px;">堆叠RNN</a> <a href="/tags/2019/" style="font-size: 15px;">2019</a> <a href="/tags/污点分析/" style="font-size: 15px;">污点分析</a> <a href="/tags/LAVA/" style="font-size: 15px;">LAVA</a> <a href="/tags/梯度下降算法/" style="font-size: 15px;">梯度下降算法</a> <a href="/tags/S-P-18/" style="font-size: 15px;">S&P'18</a> <a href="/tags/LLVM/" style="font-size: 15px;">LLVM</a> <a href="/tags/pin/" style="font-size: 15px;">pin</a> <a href="/tags/静态分析/" style="font-size: 15px;">静态分析</a> <a href="/tags/动态分析/" style="font-size: 15px;">动态分析</a> <a href="/tags/CFG/" style="font-size: 15px;">CFG</a> <a href="/tags/NDSS-17/" style="font-size: 15px;">NDSS'17</a> <a href="/tags/数据挖掘/" style="font-size: 15px;">数据挖掘</a> <a href="/tags/漏洞检测/" style="font-size: 15px;">漏洞检测</a> <a href="/tags/源代码/" style="font-size: 15px;">源代码</a> <a href="/tags/Fuzzing/" style="font-size: 15px;">Fuzzing</a> <a href="/tags/神经网络/" style="font-size: 15px;">神经网络</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li></ul></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><!--if theme.baidusitemap--><!--  a(href=config.root+"baidusitemap.xml")= __("baidusitemap")--><!--  |  |  --><!--if theme.feed--><!--  a(href=config.root+"atom.xml")= __("rss")--><!--  |  |  --><!--a(href=config.root+"about/")= __("about")--></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次</p><p><span> Copyright &copy;<a href="/." rel="nofollow">yama0xff.</a></span><!--span  Theme by--><!--  a(rel='nofollow', target='_blank', href='https://github.com/chaooo/hexo-theme-BlueLake')  BlueLake.--><!--if theme.busuanzi == true--><!-- span  Count by--><!--    a(href="http://busuanzi.ibruce.info/")  busuanzi.--></p><p> <span>Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a></span><span> & Hosted by </span><a rel="nofollow" target="_blank" href="https://github.com/wtwofire">Github</a></p></div></div></div><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?33fc02326009882ae433a2c617961e1d";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/search.json.js?v=2.0.1"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.1" async></script><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","weixin","tsina","qzone","linkedin","fbook","twi","print","renren","sqq","evernotecn","bdysc","tqq","tqf","bdxc","kaixin001","tieba","douban","bdhome","thx","ibaidu","meilishuo","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","h163","copy"],"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","qzone","weixin","fbook","twi","linkedin","youdao","evernotecn","mshare"]}};with(document)0[(getElementsByTagName('head')[0]||head).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script></body></html>

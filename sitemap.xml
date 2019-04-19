@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yama0xff.com/2019/04/15/Not-all-bytes-are-equal-Neural-byte-sieve-for-fuzzing/</loc>
+    
+    <lastmod>2019-04-16T03:44:46.349Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yama0xff.com/2019/04/15/Recurrent-Neural-Networks-for-Fuzz-Testing-Web-Browsers/</loc>
+    
+    <lastmod>2019-04-15T12:14:37.083Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yama0xff.com/2019/04/11/NEUZZ-Efficient-Fuzzing-with-Neural-Program-Smoothing/</loc>
+    
+    <lastmod>2019-04-15T01:39:12.194Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yama0xff.com/2019/04/10/Skyfire-Data-Driven-Seed-Generation-for-Fuzzing/</loc>
+    
+    <lastmod>2019-04-10T13:23:28.726Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yama0xff.com/2019/04/04/%E5%A6%82%E4%BD%95%E5%81%9A%E7%A7%91%E7%A0%94/</loc>
     
     <lastmod>2019-04-04T08:14:12.803Z</lastmod>
