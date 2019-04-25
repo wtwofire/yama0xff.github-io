@@ -23,6 +23,27 @@
   </url>
   
   <url>
+    <loc>http://yama0xff.com/2019/04/18/DeepFuzz-Automatic-Generation-of-Syntax-Valid-C-Programs-for-Fuzz-Testing/</loc>
+    
+    <lastmod>2019-04-19T03:17:49.511Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yama0xff.com/2019/04/17/Neural-Fuzzing-A-Neural-Approach-to-Generate-Test-Data-for-File-Format-Fuzzing/</loc>
+    
+    <lastmod>2019-04-18T01:51:22.849Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yama0xff.com/2019/04/17/Faster-Fuzzing-Reinitialization-with-Deep-Neural-Models/</loc>
+    
+    <lastmod>2019-04-17T08:27:29.712Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yama0xff.com/2019/04/08/ExploitMeter-Combining-Fuzzing-with-Machine-Learning-for-Automated-Evaluation-of-Software-Exploitability/</loc>
     
     <lastmod>2019-04-09T12:46:54.173Z</lastmod>
