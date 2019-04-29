@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yama0xff.com/2019/04/27/Improving-Grey-Box-Fuzzing-by-Modeling-Program-Behavior/</loc>
+    <lastmod>2019-04-29</lastmod>
+  </url>  <url>
+    <loc>http://yama0xff.com/2019/04/25/Adaptive-Grey-Box-Fuzz-Testing-with-Thompson-Sampling/</loc>
+    <lastmod>2019-04-27</lastmod>
+  </url>  <url>
     <loc>http://yama0xff.com/2019/04/09/Improving-Fitness-Function-for-Language-Fuzzing-with-PCFG-Model/</loc>
     <lastmod>2019-04-25</lastmod>
   </url>  <url>
